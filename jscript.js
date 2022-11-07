@@ -78,3 +78,34 @@ function openForm() {
 function closeForm() {
     document.querySelector('.form-container').style.display = "none"
 }
+
+
+
+const submitBtn = document.querySelector('button[type=submit]')
+const titleInput = document.querySelector('input#title').textContent.toString()
+const authorInput = document.querySelector('input#author').textContent
+const pagesInput = document.querySelector('input#pages').textContent
+const readInput = document.querySelector('input#read')
+let readStatus;
+
+console.log(titleInput)
+
+readInput.addEventListener('click', function() {
+    readInput.classList.toggle('checked')
+    if (readInput.classList.value === 'checked') {
+        readStatus = true
+    } else {
+        readStatus = false
+    }
+})
+
+submitBtn.addEventListener('click', submitForm())
+
+function submitForm() {
+    let newBook = new Book(titleInput, authorInput, pagesInput, readStatus)
+    addBookToLibrary(newBook)
+    console.log(myLibrary)
+}
+
+// figure out e.preventdefault etc to add new book when submit is clicked 
+// get back to .textContent madness
