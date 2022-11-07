@@ -70,3 +70,11 @@ for (let item of myLibrary) {
     removeDiv.appendChild(removeBtn)
     grid.appendChild(removeDiv)
 }
+
+function openForm() {
+    document.querySelector('.form-container').style.display = "block"
+}
+
+function closeForm() {
+    document.querySelector('.form-container').style.display = "none"
+}

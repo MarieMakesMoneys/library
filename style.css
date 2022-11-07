@@ -22,15 +22,19 @@
 
 body {
     display: grid;
+    width: 900px;
+    margin: auto;
 }
 
 header {
     text-align: center;
     font-family: PolskuRegula, sans-serif;
     font-size: 3.5rem;
+    padding-top: 1rem;
 }
 
 .main {
+    position: relative;
     min-height: 80vh;
     height: max-content;
     background-color: #878787;
@@ -51,10 +55,67 @@ button {
     background-color: #cea1ac;
     border: none;
     box-shadow: 2px 2px #2E2429;
+    cursor: pointer;
+    opacity: .8;
 }
 
-.remove {
-    padding: 0 1.5rem;
+button:hover {
+    opacity: 1;
+}
+
+.form-container {
+    display: none;
+    position: absolute;
+    top: 6rem;
+    left: 12rem;
+    box-shadow: 2px 2px 15px #2E2429;
+    z-index: 9;
+    border: solid 2px #2E2429;
+    background-color: #878787;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+form {
+    max-width: 300px;
+    padding: 1rem;
+    background-color: #878787;
+    line-height: 2rem;
+}
+
+label, legend {
+    background-color: inherit;
+}
+
+legend {
+    line-height: normal;
+    font-weight: 600;
+}
+
+input[type='text'], input[type='number'] {
+    width: 80%;
+    padding: 1rem;
+    border: none;
+    border-radius: .5rem;
+    box-shadow: inset 3px 3px 8px #cea1ac;
+    background-color: #e7dae3;
+}
+
+input[type="checkbox"] {
+    box-shadow: inset 3px 3px 8px #cea1ac;
+}
+
+input[type="checkbox"]:checked {
+    box-shadow: none;
+}
+
+input[type='text']:focus, input[type='number']:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn {
+    width: 100%;
 }
 
 .grid {
@@ -83,7 +144,9 @@ button {
     padding: .5rem;
 }
 
-
+.remove {
+    padding: 0 1.5rem;
+}
 
 footer {
     background-color: #cea1ac;

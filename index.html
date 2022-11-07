@@ -6,12 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src="./jscript.js" defer></script>
-    <title>Library</title>
+    <title>My book list</title>
 </head>
 <body>
-    <header>Library</header>
+    <header>My book list</header>
     <div class="main">
-        <button class="btnNew">Add a book</button>
+        <button class="btnNew" onclick="openForm()">Add a book</button>
+        <div class="form-container">
+            <form action="">
+                <legend>Fill out all the fields to add a new book to your book list!</legend>
+                
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="The Hobbit" required>
+                
+                <label for="author">Author</label>
+                <input type="text" id="author" placeholder="J.R.R. Tolkien" required>
+                
+                <label for="pages">Number of pages</label>
+                <input type="number" id="pages" placeholder="295" required>
+                
+                <label for="read">Have you read it yet?</label>
+                <input type="checkbox" id="read" required>
+
+                <button type="submit" class="btn">Save</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+            </form>
+        </div>
         <div class="grid">
             <div class="title head">Title</div>
             <div class="author head">Author</div>
