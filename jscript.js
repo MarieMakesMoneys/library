@@ -69,7 +69,11 @@ function displayLibrary() {
         let readDiv = document.createElement('div');
         readDiv.classList.add('cell')
         readDiv.setAttribute('data-array-index', [i])
-        readDiv.textContent = myLibrary[i].read 
+        let readToggle = document.createElement('button')
+        readToggle.classList.add('read-toggle')
+        readToggle.setAttribute('data-array-index', [i])
+        readToggle.textContent = myLibrary[i].read
+        readDiv.appendChild(readToggle)
         grid.appendChild(readDiv)
         
         let removeDiv = document.createElement('div')
@@ -135,8 +139,7 @@ submitBtn.addEventListener('click', function submitForm(event) {
 })
 
 
-const removeButton = grid.childNodes
-console.log(removeButton)
+const removeButton = document.querySelectorAll('.remove')
 
 removeButton.forEach((button) => {
     button.addEventListener('click', function() {
