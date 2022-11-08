@@ -11,17 +11,17 @@ function Book(title, author, pages, read) {
 }
 
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false)
-const fakeBook = new Book('title', 'author', 123, false)
-const fakeBook2 = new Book('title', 'author', 123, false)
-const fakeBook3 = new Book('title', 'author', 123, false)
-const fakeBook4 = new Book('title', 'author', 123, false)
-const fakeBook5 = new Book('title', 'author', 123, false)
-const fakeBook6 = new Book('title', 'author', 123, false)
-const fakeBook7 = new Book('title', 'author', 123, false)
-const fakeBook8 = new Book('title', 'author', 123, false)
-const fakeBook9 = new Book('title', 'author', 123, false)
-const fakeBook10 = new Book('title', 'author', 123, false)
-const fakeBook11 = new Book('title', 'author', 123, false)
+const fakeBook = new Book('title1', 'author', 123, false)
+const fakeBook2 = new Book('title2', 'author', 123, false)
+const fakeBook3 = new Book('title3', 'author', 123, false)
+const fakeBook4 = new Book('title4', 'author', 123, false)
+const fakeBook5 = new Book('title5', 'author', 123, false)
+const fakeBook6 = new Book('title6', 'author', 123, false)
+const fakeBook7 = new Book('title7', 'author', 123, false)
+const fakeBook8 = new Book('title8', 'author', 123, false)
+const fakeBook9 = new Book('title9', 'author', 123, false)
+const fakeBook10 = new Book('title10', 'author', 123, false)
+const fakeBook11 = new Book('title11', 'author', 123, false)
 
 
 
@@ -45,35 +45,47 @@ addBookToLibrary(fakeBook11)
 
 const grid = document.querySelector('.grid')
 
-for (let item of myLibrary) {
-    let titleDiv = document.createElement('div');
-    titleDiv.classList.add('cell')
-    titleDiv.textContent = item.title 
-    grid.appendChild(titleDiv)
+let i = 0;
+function displayLibrary() {
+    while (i < myLibrary.length) {
+        let titleDiv = document.createElement('div');
+        titleDiv.classList.add('cell')
+        titleDiv.setAttribute('data-array-index', [i])
+        titleDiv.textContent = myLibrary[i].title 
+        grid.appendChild(titleDiv)
+        
+        let authorDiv = document.createElement('div');
+        authorDiv.classList.add('cell')
+        authorDiv.setAttribute('data-array-index', [i])
+        authorDiv.textContent = myLibrary[i].author 
+        grid.appendChild(authorDiv)
+        
+        let pagesDiv = document.createElement('div');
+        pagesDiv.classList.add('cell')
+        pagesDiv.setAttribute('data-array-index', [i])
+        pagesDiv.textContent = myLibrary[i].pages 
+        grid.appendChild(pagesDiv)
+        
+        let readDiv = document.createElement('div');
+        readDiv.classList.add('cell')
+        readDiv.setAttribute('data-array-index', [i])
+        readDiv.textContent = myLibrary[i].read 
+        grid.appendChild(readDiv)
+        
+        let removeDiv = document.createElement('div')
+        removeDiv.classList.add('cell')
+        removeDiv.setAttribute('data-array-index', [i])
+        let removeBtn = document.createElement('button');
+        removeBtn.classList.add('remove')
+        removeBtn.setAttribute('data-array-index', [i])
+        removeBtn.textContent = 'x' 
+        removeDiv.appendChild(removeBtn)
+        grid.appendChild(removeDiv)
     
-    let authorDiv = document.createElement('div');
-    authorDiv.classList.add('cell')
-    authorDiv.textContent = item.author 
-    grid.appendChild(authorDiv)
-    
-    let pagesDiv = document.createElement('div');
-    pagesDiv.classList.add('cell')
-    pagesDiv.textContent = item.pages 
-    grid.appendChild(pagesDiv)
-    
-    let readDiv = document.createElement('div');
-    readDiv.classList.add('cell')
-    readDiv.textContent = item.read 
-    grid.appendChild(readDiv)
-    
-    let removeDiv = document.createElement('div')
-    removeDiv.classList.add('cell',)
-    let removeBtn = document.createElement('button');
-    removeBtn.classList.add('remove')
-    removeBtn.textContent = 'x' 
-    removeDiv.appendChild(removeBtn)
-    grid.appendChild(removeDiv)
+        i++
+    }
 }
+displayLibrary()
 
 
 
@@ -88,9 +100,6 @@ function closeForm() {
 
 
 const submitBtn = document.querySelector('button[type=submit]')
-//let titleInput = document.querySelector('.test').value
-//const authorInput = document.querySelector('input#author').value
-//const pagesInput = document.querySelector('input#pages').value
 const readInput = document.querySelector('input#read')
 let readStatus = false;
 
@@ -119,33 +128,23 @@ submitBtn.addEventListener('click', function submitForm(event) {
     let newBook = new Book(titleInput, authorInput, pagesInput, readStatus)
     addBookToLibrary(newBook)
 
-    let titleDiv = document.createElement('div');
-    titleDiv.classList.add('cell')
-    titleDiv.textContent = newBook.title 
-    grid.appendChild(titleDiv)
+    i = myLibrary.length-1
+    displayLibrary()
     
-    let authorDiv = document.createElement('div');
-    authorDiv.classList.add('cell')
-    authorDiv.textContent = newBook.author 
-    grid.appendChild(authorDiv)
-    
-    let pagesDiv = document.createElement('div');
-    pagesDiv.classList.add('cell')
-    pagesDiv.textContent = newBook.pages 
-    grid.appendChild(pagesDiv)
-    
-    let readDiv = document.createElement('div');
-    readDiv.classList.add('cell')
-    readDiv.textContent =newBook.read 
-    grid.appendChild(readDiv)
-    
-    let removeDiv = document.createElement('div')
-    removeDiv.classList.add('cell',)
-    let removeBtn = document.createElement('button');
-    removeBtn.classList.add('remove')
-    removeBtn.textContent = 'x' 
-    removeDiv.appendChild(removeBtn)
-    grid.appendChild(removeDiv)
-
     closeForm()
+})
+
+
+const removeButton = grid.childNodes
+console.log(removeButton)
+
+removeButton.forEach((button) => {
+    button.addEventListener('click', function() {
+        let arrayIndex = this.getAttribute('data-array-index')
+        delete myLibrary[arrayIndex]
+        let domElements = document.querySelectorAll(`[data-array-index="${arrayIndex}"]`)
+        domElements.forEach((element) => {
+            element.parentNode.removeChild(element)
+        })
+    })
 })
