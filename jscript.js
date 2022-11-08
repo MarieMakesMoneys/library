@@ -41,7 +41,7 @@ addBookToLibrary(fakeBook8)
 addBookToLibrary(fakeBook9)
 addBookToLibrary(fakeBook10)
 addBookToLibrary(fakeBook11)
-//console.log(myLibrary)
+
 
 const grid = document.querySelector('.grid')
 
@@ -50,18 +50,22 @@ for (let item of myLibrary) {
     titleDiv.classList.add('cell')
     titleDiv.textContent = item.title 
     grid.appendChild(titleDiv)
+    
     let authorDiv = document.createElement('div');
     authorDiv.classList.add('cell')
     authorDiv.textContent = item.author 
     grid.appendChild(authorDiv)
+    
     let pagesDiv = document.createElement('div');
     pagesDiv.classList.add('cell')
     pagesDiv.textContent = item.pages 
     grid.appendChild(pagesDiv)
+    
     let readDiv = document.createElement('div');
     readDiv.classList.add('cell')
     readDiv.textContent = item.read 
     grid.appendChild(readDiv)
+    
     let removeDiv = document.createElement('div')
     removeDiv.classList.add('cell',)
     let removeBtn = document.createElement('button');
@@ -70,6 +74,8 @@ for (let item of myLibrary) {
     removeDiv.appendChild(removeBtn)
     grid.appendChild(removeDiv)
 }
+
+
 
 function openForm() {
     document.querySelector('.form-container').style.display = "block"
@@ -82,13 +88,12 @@ function closeForm() {
 
 
 const submitBtn = document.querySelector('button[type=submit]')
-const titleInput = document.querySelector('input#title').textContent.toString()
-const authorInput = document.querySelector('input#author').textContent
-const pagesInput = document.querySelector('input#pages').textContent
+//let titleInput = document.querySelector('.test').value
+//const authorInput = document.querySelector('input#author').value
+//const pagesInput = document.querySelector('input#pages').value
 const readInput = document.querySelector('input#read')
-let readStatus;
+let readStatus = false;
 
-console.log(titleInput)
 
 readInput.addEventListener('click', function() {
     readInput.classList.toggle('checked')
@@ -99,13 +104,48 @@ readInput.addEventListener('click', function() {
     }
 })
 
-submitBtn.addEventListener('click', submitForm())
+submitBtn.addEventListener('click', function submitForm(event) {
+    event.preventDefault()
+    
+    let titleInput = document.querySelector('input#title')
+    titleInput = titleInput.value
 
-function submitForm() {
+    let authorInput = document.querySelector('input#author')
+    authorInput = authorInput.value
+
+    let pagesInput = document.querySelector('input#pages')
+    pagesInput = pagesInput.value
+    
     let newBook = new Book(titleInput, authorInput, pagesInput, readStatus)
     addBookToLibrary(newBook)
-    console.log(myLibrary)
-}
 
-// figure out e.preventdefault etc to add new book when submit is clicked 
-// get back to .textContent madness
+    let titleDiv = document.createElement('div');
+    titleDiv.classList.add('cell')
+    titleDiv.textContent = newBook.title 
+    grid.appendChild(titleDiv)
+    
+    let authorDiv = document.createElement('div');
+    authorDiv.classList.add('cell')
+    authorDiv.textContent = newBook.author 
+    grid.appendChild(authorDiv)
+    
+    let pagesDiv = document.createElement('div');
+    pagesDiv.classList.add('cell')
+    pagesDiv.textContent = newBook.pages 
+    grid.appendChild(pagesDiv)
+    
+    let readDiv = document.createElement('div');
+    readDiv.classList.add('cell')
+    readDiv.textContent =newBook.read 
+    grid.appendChild(readDiv)
+    
+    let removeDiv = document.createElement('div')
+    removeDiv.classList.add('cell',)
+    let removeBtn = document.createElement('button');
+    removeBtn.classList.add('remove')
+    removeBtn.textContent = 'x' 
+    removeDiv.appendChild(removeBtn)
+    grid.appendChild(removeDiv)
+
+    closeForm()
+})
