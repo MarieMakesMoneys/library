@@ -5,23 +5,35 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
+    this.readToggle = function () {
+        const readBtn = document.querySelectorAll('.read-toggle')
+        readBtn.forEach((button) => {
+            if (read === 'read') {
+                button.classList.add('read')
+                button.classList.remove('notread')
+            } else if (read === 'not read') {
+                button.classList.add('notread')
+                button.classList.remove('read')
+            }
+        })
+    }
     this.info = function() {
         return title + " " + author + " " + pages + " pages " + read
     }
 }
 
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false)
-const fakeBook = new Book('title1', 'author', 123, false)
-const fakeBook2 = new Book('title2', 'author', 123, false)
-const fakeBook3 = new Book('title3', 'author', 123, false)
-const fakeBook4 = new Book('title4', 'author', 123, false)
-const fakeBook5 = new Book('title5', 'author', 123, false)
-const fakeBook6 = new Book('title6', 'author', 123, false)
-const fakeBook7 = new Book('title7', 'author', 123, false)
-const fakeBook8 = new Book('title8', 'author', 123, false)
-const fakeBook9 = new Book('title9', 'author', 123, false)
-const fakeBook10 = new Book('title10', 'author', 123, false)
-const fakeBook11 = new Book('title11', 'author', 123, false)
+const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, "not read")
+const fakeBook = new Book('title1', 'author', 123, "not read")
+const fakeBook2 = new Book('title2', 'author', 123, "not read")
+const fakeBook3 = new Book('title3', 'author', 123, "not read")
+const fakeBook4 = new Book('title4', 'author', 123, "not read")
+const fakeBook5 = new Book('title5', 'author', 123, "not read")
+const fakeBook6 = new Book('title6', 'author', 123, "not read")
+const fakeBook7 = new Book('title7', 'author', 123, "not read")
+const fakeBook8 = new Book('title8', 'author', 123, "not read")
+const fakeBook9 = new Book('title9', 'author', 123, "not read")
+const fakeBook10 = new Book('title10', 'author', 123, "not read")
+const fakeBook11 = new Book('title11', 'author', 123, "not read")
 
 
 
@@ -86,6 +98,8 @@ function displayLibrary() {
         removeDiv.appendChild(removeBtn)
         grid.appendChild(removeDiv)
     
+        myLibrary[i].readToggle()
+
         i++
     }
 }
@@ -105,15 +119,16 @@ function closeForm() {
 
 const submitBtn = document.querySelector('button[type=submit]')
 const readInput = document.querySelector('input#read')
-let readStatus = false;
+const readToggle = document.querySelectorAll('.read-toggle')
+let readStatus = "not read";
 
 
 readInput.addEventListener('click', function() {
     readInput.classList.toggle('checked')
     if (readInput.classList.value === 'checked') {
-        readStatus = true
+        readStatus = "read"
     } else {
-        readStatus = false
+        readStatus = "not read"
     }
 })
 
@@ -149,5 +164,20 @@ removeButton.forEach((button) => {
         domElements.forEach((element) => {
             element.parentNode.removeChild(element)
         })
+    })
+})
+
+readToggle.forEach((button) => {
+    button.addEventListener('click', () => {
+        let arrayIndex = button.getAttribute('data-array-index')
+        
+        if (myLibrary[arrayIndex].read === 'read') {
+            myLibrary[arrayIndex].read = 'not read'
+        } else {
+            myLibrary[arrayIndex].read = 'read'
+        }
+        console.log(myLibrary[arrayIndex])
+
+        myLibrary[arrayIndex].readToggle()
     })
 })
