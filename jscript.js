@@ -8,10 +8,10 @@ function Book(title, author, pages, read) {
     this.readToggle = function () {
         const readBtn = document.querySelectorAll('.read-toggle')
         readBtn.forEach((button) => {
-            if (read === 'read') {
+            if (this.read === 'read') {
                 button.classList.add('read')
                 button.classList.remove('notread')
-            } else if (read === 'not read') {
+            } else if (this.read === 'not read') {
                 button.classList.add('notread')
                 button.classList.remove('read')
             }
@@ -24,12 +24,12 @@ function Book(title, author, pages, read) {
 
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, "not read")
 const fakeBook = new Book('title1', 'author', 123, "not read")
-const fakeBook2 = new Book('title2', 'author', 123, "not read")
+const fakeBook2 = new Book('title2', 'author', 123, "read")
 const fakeBook3 = new Book('title3', 'author', 123, "not read")
 const fakeBook4 = new Book('title4', 'author', 123, "not read")
-const fakeBook5 = new Book('title5', 'author', 123, "not read")
+const fakeBook5 = new Book('title5', 'author', 123, "read")
 const fakeBook6 = new Book('title6', 'author', 123, "not read")
-const fakeBook7 = new Book('title7', 'author', 123, "not read")
+const fakeBook7 = new Book('title7', 'author', 123, "read")
 const fakeBook8 = new Book('title8', 'author', 123, "not read")
 const fakeBook9 = new Book('title9', 'author', 123, "not read")
 const fakeBook10 = new Book('title10', 'author', 123, "not read")
@@ -170,11 +170,14 @@ removeButton.forEach((button) => {
 readToggle.forEach((button) => {
     button.addEventListener('click', () => {
         let arrayIndex = button.getAttribute('data-array-index')
-        
+        const readBtn = document.querySelector(`.read-toggle[data-array-index="${arrayIndex}"`)
+
         if (myLibrary[arrayIndex].read === 'read') {
             myLibrary[arrayIndex].read = 'not read'
+            readBtn.textContent = 'not read'
         } else {
             myLibrary[arrayIndex].read = 'read'
+            readBtn.textContent = 'read'
         }
         console.log(myLibrary[arrayIndex])
 
