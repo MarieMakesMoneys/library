@@ -145,9 +145,16 @@ input[type='text']:focus, input[type='number']:focus {
 }
 
 .read-toggle {
-    padding: 0 1.5rem;
-    
+    width: 90px;
+    padding: 0;
 }
+
+.read-toggle.read {
+    background-color: #878787;
+    color: #e7dae3;
+}
+
+
 
 .remove {
     padding: 0 1.5rem;
