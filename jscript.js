@@ -1,3 +1,16 @@
+const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false)
+const fakeBook = new Book('title1', 'author', 123, false)
+const fakeBook2 = new Book('title2', 'author', 123, true)
+const fakeBook3 = new Book('title3', 'author', 123, false)
+const fakeBook4 = new Book('title4', 'author', 123, false)
+const fakeBook5 = new Book('title5', 'author', 123, true)
+const fakeBook6 = new Book('title6', 'author', 123, false)
+const fakeBook7 = new Book('title7', 'author', 123, true)
+const fakeBook8 = new Book('title8', 'author', 123, false)
+const fakeBook9 = new Book('title9', 'author', 123, false)
+const fakeBook10 = new Book('title10', 'author', 123, false)
+const fakeBook11 = new Book('title11', 'author', 123, false)
+
 let myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -6,36 +19,20 @@ function Book(title, author, pages, read) {
     this.pages = pages
     this.read = read
     this.readToggle = function () {
-        const readBtn = document.querySelectorAll('.read-toggle')
-        readBtn.forEach((button) => {
-            if (this.read === 'read') {
-                button.classList.add('read')
-                button.classList.remove('notread')
-            } else if (this.read === 'not read') {
-                button.classList.add('notread')
-                button.classList.remove('read')
-            }
-        })
+        let arrayIndex = myLibrary.indexOf(this)
+        const readBtn = document.querySelector(`.read-toggle[data-array-index="${arrayIndex}"`)
+        if (this.read === true) {
+            readBtn.classList.add('read')
+            readBtn.classList.remove('notread')
+        } else if (this.read === false) {
+            readBtn.classList.add('notread')
+            readBtn.classList.remove('read')
+        }
     }
     this.info = function() {
         return title + " " + author + " " + pages + " pages " + read
     }
 }
-
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, "not read")
-const fakeBook = new Book('title1', 'author', 123, "not read")
-const fakeBook2 = new Book('title2', 'author', 123, "read")
-const fakeBook3 = new Book('title3', 'author', 123, "not read")
-const fakeBook4 = new Book('title4', 'author', 123, "not read")
-const fakeBook5 = new Book('title5', 'author', 123, "read")
-const fakeBook6 = new Book('title6', 'author', 123, "not read")
-const fakeBook7 = new Book('title7', 'author', 123, "read")
-const fakeBook8 = new Book('title8', 'author', 123, "not read")
-const fakeBook9 = new Book('title9', 'author', 123, "not read")
-const fakeBook10 = new Book('title10', 'author', 123, "not read")
-const fakeBook11 = new Book('title11', 'author', 123, "not read")
-
-
 
 function addBookToLibrary(Book) {
     myLibrary.push(Book)    
@@ -53,7 +50,6 @@ addBookToLibrary(fakeBook8)
 addBookToLibrary(fakeBook9)
 addBookToLibrary(fakeBook10)
 addBookToLibrary(fakeBook11)
-
 
 const grid = document.querySelector('.grid')
 
@@ -81,11 +77,11 @@ function displayLibrary() {
         let readDiv = document.createElement('div');
         readDiv.classList.add('cell')
         readDiv.setAttribute('data-array-index', [i])
-        let readToggle = document.createElement('button')
-        readToggle.classList.add('read-toggle')
-        readToggle.setAttribute('data-array-index', [i])
-        readToggle.textContent = myLibrary[i].read
-        readDiv.appendChild(readToggle)
+        let readToggleBtn = document.createElement('button')
+        readToggleBtn.classList.add('read-toggle')
+        readToggleBtn.setAttribute('data-array-index', [i])
+        readToggleBtn.textContent = myLibrary[i].read
+        readDiv.appendChild(readToggleBtn)
         grid.appendChild(readDiv)
         
         let removeDiv = document.createElement('div')
@@ -106,7 +102,6 @@ function displayLibrary() {
 displayLibrary()
 
 
-
 function openForm() {
     document.querySelector('.form-container').style.display = "block"
 }
@@ -115,20 +110,17 @@ function closeForm() {
     document.querySelector('.form-container').style.display = "none"
 }
 
-
-
 const submitBtn = document.querySelector('button[type=submit]')
 const readInput = document.querySelector('input#read')
-const readToggle = document.querySelectorAll('.read-toggle')
-let readStatus = "not read";
-
+const readToggleBtn = document.querySelectorAll('.read-toggle')
+let readStatus = false;
 
 readInput.addEventListener('click', function() {
     readInput.classList.toggle('checked')
     if (readInput.classList.value === 'checked') {
-        readStatus = "read"
+        readStatus = true
     } else {
-        readStatus = "not read"
+        readStatus = false
     }
 })
 
@@ -167,17 +159,16 @@ removeButton.forEach((button) => {
     })
 })
 
-readToggle.forEach((button) => {
+readToggleBtn.forEach((button) => {
     button.addEventListener('click', () => {
         let arrayIndex = button.getAttribute('data-array-index')
         const readBtn = document.querySelector(`.read-toggle[data-array-index="${arrayIndex}"`)
-
-        if (myLibrary[arrayIndex].read === 'read') {
-            myLibrary[arrayIndex].read = 'not read'
-            readBtn.textContent = 'not read'
+        if (myLibrary[arrayIndex].read === true) {
+            myLibrary[arrayIndex].read = false
+            readBtn.textContent = false
         } else {
-            myLibrary[arrayIndex].read = 'read'
-            readBtn.textContent = 'read'
+            myLibrary[arrayIndex].read = true
+            readBtn.textContent = true
         }
         console.log(myLibrary[arrayIndex])
 
