@@ -1,27 +1,37 @@
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;  
+    }
+
+    info() {
+            return this.title + " " + this.author + " " + this.pages + " pages " + this.read;
+    }
+
+    readToggle() {
+        let arrayIndex = myLibrary.indexOf(this);
+        const readBtn = document.querySelector(`.read-toggle[data-array-index="${arrayIndex}"`);
+        if (this.read === 'read') {
+            readBtn.classList.add('read');
+            readBtn.classList.remove('notread');
+        } else if (this.read === 'unread') {
+            readBtn.classList.add('notread');
+            readBtn.classList.remove('read');
+        }
+        console.log(arrayIndex, this.read)
+    };
+}
+
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'unread')
 
 let myLibrary = [theHobbit];
 
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.readToggle = function () {
-        let arrayIndex = myLibrary.indexOf(this)
-        const readBtn = document.querySelector(`.read-toggle[data-array-index="${arrayIndex}"`)
-        if (this.read === 'read') {
-            readBtn.classList.add('read')
-            readBtn.classList.remove('notread')
-        } else if (this.read === 'unread') {
-            readBtn.classList.add('notread')
-            readBtn.classList.remove('read')
-        }
-    }
-    this.info = function() {
-        return title + " " + author + " " + pages + " pages " + read
-    }
-}
+console.log(theHobbit.info())
+
+
+
 
 function addBookToLibrary(Book) {
     myLibrary.push(Book)    
@@ -75,7 +85,6 @@ function displayLibrary() {
         myLibrary[i].readToggle()
 
         removeButton = document.querySelectorAll('.remove')
-        console.log(removeButton)
         removeButton.forEach((button) => {
             button.addEventListener('click', function() {
                 let arrayIndex = this.getAttribute('data-array-index')
@@ -99,7 +108,6 @@ function displayLibrary() {
                     myLibrary[arrayIndex].read = 'read'
                     readBtn.textContent = 'read'
                 }
-                console.log(myLibrary[arrayIndex])
         
                 myLibrary[arrayIndex].readToggle()
             })
